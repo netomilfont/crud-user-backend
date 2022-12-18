@@ -2,6 +2,7 @@ import { IUser, IUserUpdate } from "../../interfaces/users";
 import AppDataSource from "../../data-source";
 import { User } from "../../entities/users.entity";
 import { AppError } from "../../errors/AppError";
+import { userWithoutPasswordSerializer } from "../../serializers/user.serializers";
 
 const updateUserService = async (userData: IUserUpdate, userId: string): Promise<IUser> => {
 
@@ -23,9 +24,14 @@ const updateUserService = async (userData: IUserUpdate, userId: string): Promise
         ...user,
         ...userData
     })
+
     await userRepository.save(updatedUser)
 
-    return updatedUser
+    const updatedUserWithoutPassword =  await userWithoutPasswordSerializer.validate(updatedUser, {
+        stripUnknown: true
+    })
+
+    return updatedUserWithoutPassword
 }
 
 export { updateUserService }

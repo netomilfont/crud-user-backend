@@ -6,12 +6,13 @@ export interface IUserRequest {
 }
 
 export interface IUser {
-    id: string
-    name: string
-    email: string
-    isAdm: boolean
-    createdAt: Date
-    updatedAt: Date
+    id: string | undefined
+    name: string | undefined
+    email: string | undefined
+    isAdm: boolean | undefined
+    isActive:boolean | undefined
+    createdAt: Date | undefined
+    updatedAt: Date | undefined
 }
 
 

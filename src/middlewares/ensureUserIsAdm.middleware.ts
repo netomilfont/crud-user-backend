@@ -19,7 +19,7 @@ const ensureUserIsAdm = async (req: Request, res: Response, next: NextFunction) 
     }
 
     if(!user.isAdm){
-        throw new AppError("You don't have permition", 401)
+        throw new AppError("You don't have permition", 403)
     }
 
     return next()

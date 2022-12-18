@@ -15,14 +15,14 @@ const createLoginService = async ({email, password}: IUserLogin): Promise<string
     })
     
     if(!user) {
-        throw new AppError("User or password invalid!", 401)
+        throw new AppError("User or password invalid!", 403)
     }
     
     const passwordMatch = await compare(password, user.password)
     
     
     if(!passwordMatch) {
-        throw new AppError("User or password invalid!", 401)
+        throw new AppError("User or password invalid!", 403)
     }
     
     const token = jwt.sign(

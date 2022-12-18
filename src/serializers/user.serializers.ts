@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
-import { IUserRequest, IUser } from "../interfaces/users";
+import { IUserRequest, IUser, IUserUpdate } from "../interfaces/users";
 
 const userSerializer: SchemaOf<IUserRequest> = yup.object().shape({
     name: yup.string().required(),
@@ -13,9 +13,16 @@ const userWithoutPasswordSerializer: SchemaOf<IUser> = yup.object().shape({
     name: yup.string().notRequired(),
     email: yup.string().email().notRequired(),
     isAdm: yup.boolean().notRequired(),
+    isActive: yup.boolean().notRequired(),
     id: yup.string().notRequired(),
-    createdAt: yup.date().notRequired(),
-    updatedAt: yup.date().notRequired()
+    createdAt: yup.date(),
+    updatedAt: yup.date()
 })
 
-export { userSerializer, userWithoutPasswordSerializer }
+const userUpdateSerializer: SchemaOf<IUserUpdate> = yup.object().shape({
+    name: yup.string().notRequired(),
+    email: yup.string().email().notRequired(),
+    password: yup.string().notRequired()
+})
+
+export { userSerializer, userWithoutPasswordSerializer, userUpdateSerializer }
