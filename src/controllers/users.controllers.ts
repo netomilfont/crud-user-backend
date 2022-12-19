@@ -18,9 +18,10 @@ const listUsersController = async (req: Request, res: Response) => {
 
 const updateUserController = async (req: Request, res: Response) => {
     const userData: IUserUpdate = req.body
+    const userDataId: string = req.user.id
     const userId: string = req.params.id
-    const updatedUser = await updateUserService(userData, userId)
-    return res.json(updatedUser)
+    const updatedUser = await updateUserService(userData, userId, userDataId)
+    return res.status(200).json(updatedUser)
 }
 
 const deleteUserController = async (req: Request, res: Response) => {

@@ -1,5 +1,6 @@
 import { hashSync } from "bcryptjs";
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate } from "typeorm";
+import { getRounds } from "bcryptjs";
 
 @Entity('users')
 class User {
@@ -31,7 +32,10 @@ class User {
     @BeforeUpdate()
     @BeforeInsert()
     hashPassword(){
-        this.password = hashSync(this.password, 10)
+        const isEncrypted = getRounds(this.password)
+        if(!isEncrypted){
+            this.password = hashSync(this.password, 10)
+        }
     }
 }
 

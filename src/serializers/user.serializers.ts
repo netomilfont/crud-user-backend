@@ -9,6 +9,7 @@ const userSerializer: SchemaOf<IUserRequest> = yup.object().shape({
     password: yup.string().required()
 })
 
+
 const userWithoutPasswordSerializer: SchemaOf<IUser> = yup.object().shape({
     name: yup.string().notRequired(),
     email: yup.string().email().notRequired(),
@@ -19,10 +20,12 @@ const userWithoutPasswordSerializer: SchemaOf<IUser> = yup.object().shape({
     updatedAt: yup.date()
 })
 
+const listAllUsersSerializer = yup.array(userWithoutPasswordSerializer)
+
 const userUpdateSerializer: SchemaOf<IUserUpdate> = yup.object().shape({
     name: yup.string().notRequired(),
     email: yup.string().email().notRequired(),
     password: yup.string().notRequired()
 })
 
-export { userSerializer, userWithoutPasswordSerializer, userUpdateSerializer }
+export { userSerializer, userWithoutPasswordSerializer, userUpdateSerializer, listAllUsersSerializer }
